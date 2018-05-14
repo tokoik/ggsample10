@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 /*
 ** Spherical Harmonic coefficients

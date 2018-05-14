@@ -1,4 +1,4 @@
-/*
+﻿/*
 ** Spherical Harmonic coefficients
 */
 #include "shcoeff.h"

@@ -1,96 +1,38 @@
-// ƒEƒBƒ“ƒhƒEŠÖ˜A‚Ìˆ—
-#include "Window.h"
+ï»¿//
+// ãƒ¡ã‚¤ãƒ³ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
+//
 
-// ƒVƒF[ƒ_[ŠÖ˜A‚Ìˆ—
-#include "shader.h"
+// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒœãƒƒã‚¯ã‚¹ã®è¡¨ç¤ºã®æº–å‚™
+#if defined(_WIN32)
+#  include <Windows.h>
+#  include <atlstr.h>  
+#endif
 
-// •W€ƒ‰ƒCƒuƒ‰ƒŠ
-#include <cmath>
-#include <memory>
-
-// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌüŠúi•bj
-const double cycle(10.0);
+// ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³æœ¬ä½“
+#include "GgApplication.h"
 
 //
-// SH ŒW”ƒe[ƒuƒ‹
+// ãƒ¡ã‚¤ãƒ³ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
 //
-#include "shcoeff.h"
-
-//
-// ƒƒCƒ“ƒvƒƒOƒ‰ƒ€
-//
-int main(int argc, const char * argv[])
+int main() try
 {
-  // ƒEƒBƒ“ƒhƒE‚ğì¬‚·‚é
-  Window window("ggsample10");
+  // ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³æœ¬ä½“
+  GgApplication app;
 
-  // ”wŒiF‚ğw’è‚·‚é
-  glClearColor(0.1f, 0.2f, 0.3f, 0.0f);
+  // ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹
+  app.run();
+}
+catch (const std::exception &e)
+{
+  // ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
+#if defined(_WIN32)
+  const CStringW message(e.what());
+  MessageBox(NULL, LPCWSTR(message), TEXT("ã‚²ãƒ¼ãƒ ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã‚¹ç‰¹è«–"), MB_OK | MB_ICONERROR);
+#else
+  std::cerr << e.what() << "\n\n[Type enter key] ";
+  std::cin.get();
+#endif
 
-  // ‰B–ÊÁ‹‚ğ—LŒø‚É‚·‚é
-  glEnable(GL_DEPTH_TEST);
-  glEnable(GL_CULL_FACE);
-
-  // ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚Ìì¬
-  const GLuint program(loadProgram("simple.vert", "pv", "simple.frag", "fc"));
-
-  // uniform •Ï”‚ÌƒCƒ“ƒfƒbƒNƒX‚ÌŒŸõiŒ©‚Â‚©‚ç‚È‚¯‚ê‚Î -1j
-  const GLint mwLoc(glGetUniformLocation(program, "mw"));
-  const GLint mcLoc(glGetUniformLocation(program, "mc"));
-  const GLint mgLoc(glGetUniformLocation(program, "mg"));
-  const GLint shLoc(glGetUniformLocation(program, "sh"));
-
-  // ƒrƒ…[•ÏŠ·s—ñ‚ğ mv ‚É‹‚ß‚é
-  const GgMatrix mv(ggLookat(0.0f, 1.0f, 2.3f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f));
-
-  // }Œ`ƒf[ƒ^‚Ìì¬
-  const std::unique_ptr<const GgElements> object(ggElementsObj("bunny.obj"));
-
-  // Œo‰ßŠÔ‚ÌƒŠƒZƒbƒg
-  glfwSetTime(0.0);
-
-  // ƒEƒBƒ“ƒhƒE‚ªŠJ‚¢‚Ä‚¢‚éŠÔ‚­‚è•Ô‚µ•`‰æ‚·‚é
-  while (window.shouldClose() == GL_FALSE)
-  {
-    // ‰æ–ÊÁ‹
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ìg—pŠJn
-    glUseProgram(program);
-
-    // ‚ÌŒv‘ª
-    const float t(static_cast<float>(fmod(glfwGetTime(), cycle) / cycle));
-
-    // SH ŒW”ƒe[ƒuƒ‹‚Ì”Ô†
-    const int shtable(static_cast<int>(nshcoeff * t) % nshcoeff);
-
-    // ƒ‚ƒfƒ‹ƒrƒ…[•ÏŠ·s—ñ ( t ‚É‚à‚Æ‚Ã‚­‰ñ“]ƒAƒjƒ[ƒVƒ‡ƒ“)
-    const GgMatrix mw(mv.rotateY(12.56637f * t));
-
-    // –@ü•ÏŠ·s—ñ
-    const GgMatrix mg(mw.normal());
-
-    // “Š‰e•ÏŠ·s—ñ
-    const GgMatrix mp(ggPerspective(0.5f, window.getAspect(), 1.0f, 15.0f));
-
-    // ƒ‚ƒfƒ‹ƒrƒ…[E“Š‰e•ÏŠ·
-    const GgMatrix mc(mp * mw);
-
-    // uniform •Ï”‚ğİ’è‚·‚é
-    glUniformMatrix4fv(mwLoc, 1, GL_FALSE, mw.get());
-    glUniformMatrix4fv(mcLoc, 1, GL_FALSE, mc.get());
-    glUniformMatrix4fv(mgLoc, 1, GL_FALSE, mg.get());
-    glUniform3fv(shLoc, 9, *shcoeff[shtable]);
-
-    // }Œ`‚Ì•`‰æ
-    object->draw();
-
-    // ƒVƒF[ƒ_ƒvƒƒOƒ‰ƒ€‚Ìg—pI—¹
-    glUseProgram(0);
-
-    // ƒJƒ‰[ƒoƒbƒtƒ@‚ğ“ü‚ê‘Ö‚¦‚ÄƒCƒxƒ“ƒg‚ğæ‚èo‚·
-    window.swapBuffers();
-  }
-
-  return 0;
+  // ãƒ–ãƒ­ã‚°ãƒ©ãƒ ã‚’çµ‚äº†ã™ã‚‹
+  return EXIT_FAILURE;
 }
