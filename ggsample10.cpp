@@ -50,7 +50,7 @@ void GgApplication::run()
   glfwSetTime(0.0);
 
   // ウィンドウが開いている間くり返し描画する
-  while (window.shouldClose() == GL_FALSE)
+  while (window)
   {
     // 画面消去
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
