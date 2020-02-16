@@ -1,5 +1,5 @@
 ﻿// ウィンドウ関連の処理
-#include "GgApplication.h"
+#include "Window.h"
 
 // シェーダー関連の処理
 #include "shader.h"
@@ -19,7 +19,7 @@ const double cycle(10.0);
 //
 // アプリケーションの実行
 //
-void GgApplication::run()
+void app()
 {
   // ウィンドウを作成する
   Window window("ggsample10");
