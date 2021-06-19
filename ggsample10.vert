@@ -1,5 +1,4 @@
-#version 150 core
-#extension GL_ARB_explicit_attrib_location : enable
+#version 410 core
 
 // 光源
 const vec4 pl = vec4(3.0, 4.0, 5.0, 1.0);           // 位置
