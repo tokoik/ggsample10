@@ -22,7 +22,7 @@ const float k2 = 0.511664;
 const float k3 = 0.743125;
 const float k4 = 0.886227;
 const float k5 = 0.247708;
-uniform vec3 sh[9];                                 // 球面調和係数
+uniform vec3 sh[10];                                // 球面調和係数
 
 // ラスタライザに送る頂点属性
 out vec3 idiff;                                     // 拡散反射光強度

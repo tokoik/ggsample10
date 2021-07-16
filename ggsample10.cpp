@@ -1,28 +1,31 @@
-﻿// ウィンドウ関連の処理
-#include "Window.h"
+﻿//
+// ゲームグラフィックス特論宿題アプリケーション
+//
+#include "GgApp.h"
+
+// プロジェクト名
+#ifndef PROJECT_NAME
+#  define PROJECT_NAME "ggsample10"
+#endif
 
 // シェーダー関連の処理
 #include "shader.h"
-
-// 標準ライブラリ
-#include <cmath>
-#include <memory>
-
-// アニメーションの周期（秒）
-const double cycle(10.0);
 
 //
 // SH 係数テーブル
 //
 #include "shcoeff.h"
 
+// アニメーションの周期（秒）
+constexpr auto cycle{ 10.0 };
+
 //
-// アプリケーションの実行
+// アプリケーション本体
 //
-void app()
+int GgApp::main(int argc, const char* const* argv)
 {
-  // ウィンドウを作成する
-  Window window("ggsample10");
+  // ウィンドウを作成する (この行は変更しないでください)
+  Window window{ argc > 1 ? argv[1] : PROJECT_NAME };
 
   // 背景色を指定する
   glClearColor(0.1f, 0.2f, 0.3f, 0.0f);
@@ -32,19 +35,19 @@ void app()
   glEnable(GL_CULL_FACE);
 
   // プログラムオブジェクトの作成
-  const GLuint program(loadProgram("ggsample10.vert", "pv", "ggsample10.frag", "fc"));
+  const auto program{ loadProgram(PROJECT_NAME ".vert", "pv", PROJECT_NAME ".frag", "fc") };
 
   // uniform 変数のインデックスの検索（見つからなければ -1）
-  const GLint mwLoc(glGetUniformLocation(program, "mw"));
-  const GLint mcLoc(glGetUniformLocation(program, "mc"));
-  const GLint mgLoc(glGetUniformLocation(program, "mg"));
-  const GLint shLoc(glGetUniformLocation(program, "sh"));
+  const auto mwLoc{ glGetUniformLocation(program, "mw") };
+  const auto mcLoc{ glGetUniformLocation(program, "mc") };
+  const auto mgLoc{ glGetUniformLocation(program, "mg") };
+  const auto shLoc{ glGetUniformLocation(program, "sh") };
 
   // ビュー変換行列を mv に求める
-  const GgMatrix mv(ggLookat(0.0f, 1.0f, 2.3f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f));
+  const auto mv{ ggLookat(0.0f, 1.0f, 2.3f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f) };
 
   // 図形データの作成
-  const std::unique_ptr<const GgElements> object(ggElementsObj("bunny.obj"));
+  const std::unique_ptr<const GgElements> object{ ggElementsObj("bunny.obj") };
 
   // 経過時間のリセット
   glfwSetTime(0.0);
@@ -59,28 +62,28 @@ void app()
     glUseProgram(program);
 
     // 時刻の計測
-    const float t(static_cast<float>(fmod(glfwGetTime(), cycle) / cycle));
+    const auto t{ static_cast<float>(fmod(glfwGetTime(), cycle) / cycle) };
 
     // SH 係数テーブルの番号
-    const int shtable(static_cast<int>(nshcoeff * t) % nshcoeff);
+    const auto shtable{ static_cast<int>(nshcoeff * t) % nshcoeff };
 
     // モデルビュー変換行列 (時刻 t にもとづく回転アニメーション)
-    const GgMatrix mw(mv.rotateY(12.56637f * t));
+    const auto mw{ mv.rotateY(12.56637f * t) };
 
     // 法線変換行列
-    const GgMatrix mg(mw.normal());
+    const auto mg{ mw.normal() };
 
     // 投影変換行列
-    const GgMatrix mp(ggPerspective(0.5f, window.getAspect(), 1.0f, 15.0f));
+    const auto mp{ ggPerspective(0.5f, window.getAspect(), 1.0f, 15.0f) };
 
     // モデルビュー・投影変換
-    const GgMatrix mc(mp * mw);
+    const auto mc{ mp * mw };
 
     // uniform 変数を設定する
     glUniformMatrix4fv(mwLoc, 1, GL_FALSE, mw.get());
     glUniformMatrix4fv(mcLoc, 1, GL_FALSE, mc.get());
     glUniformMatrix4fv(mgLoc, 1, GL_FALSE, mg.get());
-    glUniform3fv(shLoc, 9, *shcoeff[shtable]);
+    glUniform3fv(shLoc, nshcoeff, *shcoeff[shtable]);
 
     // 図形の描画
     object->draw();
@@ -91,4 +94,6 @@ void app()
     // カラーバッファを入れ替えてイベントを取り出す
     window.swapBuffers();
   }
+
+  return 0;
 }

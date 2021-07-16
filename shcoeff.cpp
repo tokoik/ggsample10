@@ -137,4 +137,4 @@ const float shcoeff[][9][3] =
   },
 };
 
-const int nshcoeff = sizeof shcoeff / sizeof shcoeff[0];
+const int nshcoeff{ static_cast<int>(sizeof shcoeff / sizeof shcoeff[0]) };
