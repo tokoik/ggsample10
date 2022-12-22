@@ -11,6 +11,7 @@
 		7D57106423F8FD9200856C4B /* gg.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7D57106323F8FD9200856C4B /* gg.icns */; };
 		7D67348820AACA0800AE724E /* ggsample10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D67348720AACA0800AE724E /* ggsample10.cpp */; };
 		7D67348B20AACADE00AE724E /* bunny.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 7D67348A20AACADE00AE724E /* bunny.mtl */; };
+		7DA620D529543C1900849AD5 /* GgApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DA620D429543C1900849AD5 /* GgApp.cpp */; };
 		7DB969D4177DA1A1004B1FF7 /* bunny.obj in Resources */ = {isa = PBXBuildFile; fileRef = 7DB969D3177DA186004B1FF7 /* bunny.obj */; };
 		7DC2D89D150E2AA1007E9256 /* gg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2D89B150E2AA1007E9256 /* gg.cpp */; };
 		7DC2D89F150E2AAC007E9256 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DC2D89E150E2AAC007E9256 /* main.cpp */; };
@@ -24,10 +25,10 @@
 		7D1C7B551EF3A1F1003766E1 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = shader.cpp; sourceTree = "<group>"; tabWidth = 2; };
 		7D1E90EE1123E36C005E6C75 /* ggsample10.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ggsample10.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D1E90F11123E36C005E6C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7D57106223F8FD8E00856C4B /* Window.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Window.h; sourceTree = "<group>"; tabWidth = 2; };
 		7D57106323F8FD9200856C4B /* gg.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gg.icns; sourceTree = "<group>"; };
 		7D67348720AACA0800AE724E /* ggsample10.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = ggsample10.cpp; sourceTree = "<group>"; tabWidth = 2; };
 		7D67348A20AACADE00AE724E /* bunny.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.mtl; sourceTree = "<group>"; };
+		7DA620D429543C1900849AD5 /* GgApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GgApp.cpp; sourceTree = "<group>"; };
 		7DB969D3177DA186004B1FF7 /* bunny.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.obj; sourceTree = "<group>"; };
 		7DC2D89B150E2AA1007E9256 /* gg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = gg.cpp; sourceTree = "<group>"; tabWidth = 2; };
 		7DC2D89C150E2AA1007E9256 /* gg.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = gg.h; sourceTree = "<group>"; tabWidth = 2; };
@@ -60,7 +61,7 @@
 				7DC2D8B4150E2AE7007E9256 /* shcoeff.h */,
 				7DC2D8B3150E2AE7007E9256 /* shcoeff.cpp */,
 				7DD627D826CA9F6B00C0CA0F /* GgApp.h */,
-				7D57106223F8FD8E00856C4B /* Window.h */,
+				7DA620D429543C1900849AD5 /* GgApp.cpp */,
 				7DC2D89C150E2AA1007E9256 /* gg.h */,
 				7DC2D89B150E2AA1007E9256 /* gg.cpp */,
 				7DC2D8BB150E2AFF007E9256 /* ggsample10.vert */,
@@ -155,6 +156,7 @@
 				7D1C7B561EF3A1F1003766E1 /* shader.cpp in Sources */,
 				7DC2D8B5150E2AE7007E9256 /* shcoeff.cpp in Sources */,
 				7D67348820AACA0800AE724E /* ggsample10.cpp in Sources */,
+				7DA620D529543C1900849AD5 /* GgApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
