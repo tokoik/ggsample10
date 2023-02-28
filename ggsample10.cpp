@@ -47,7 +47,7 @@ int GgApp::main(int argc, const char* const* argv)
   const auto mv{ ggLookat(0.0f, 1.0f, 2.3f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f) };
 
   // 図形データの作成
-  const std::unique_ptr<const GgElements> object{ ggElementsObj("bunny.obj") };
+  const auto object{ ggElementsObj("bunny.obj") };
 
   // 経過時間のリセット
   glfwSetTime(0.0);
